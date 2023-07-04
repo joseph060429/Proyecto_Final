@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
   res.send("Bienvenido a mi API");
 });
 
-
+//Rutas no protegidas son crear y loguear el usuario//
 const routesNoProtegidasUser = require("./routes/userRoutesNoProtegidas");
 app.use("/api", routesNoProtegidasUser);
 
