@@ -1,4 +1,4 @@
-const routesPrueba = require("./routesPrueba")
+
+const crearUsuario = require("./userRoutes")
 
 
-module.exports = routesPrueba;
