@@ -17,8 +17,12 @@ const router = require("express").Router();
 
 //rutas
 app.get("/", (req, res) => {
-  res.send("Welcome to my API");
+  res.send("Bienvenido a mi API");
 });
+
+
+const routesNoProtegidasUser = require("./routes/userRoutesNoProtegidas");
+app.use("/api", routesNoProtegidasUser);
 
 //Conexión a base de datos
 const database = require("./database/indexDb");

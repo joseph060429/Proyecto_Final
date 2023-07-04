@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 
 //Ruta crear usuario
-router.post('/users', (req, res)=> {
+router.post('/crearUsuario', (req, res)=> {
     res.send("Create User")
 })
 
