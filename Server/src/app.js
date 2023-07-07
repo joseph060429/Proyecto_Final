@@ -21,10 +21,13 @@ app.get("/", (req, res) => {
 });
 
 //Rutas no protegidas son crear y loguear el usuario//
-const routesNoProtegidasUser = require("./routes/userRoutesNoProtegidas");
-app.use("/api", routesNoProtegidasUser);
+const authRoutes = require("./routes/authRoutes");
+app.use(authRoutes);
+
+const userRouter = require('./routes/userRouter');
 
 //Conexión a base de datos
 const database = require("./database/indexDb");
+// const createNewUser = require("./controllers/authController");
 
 module.exports = app;

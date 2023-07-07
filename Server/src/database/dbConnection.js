@@ -10,7 +10,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("Conexión con la base de datos establecida correctamente"))
+  .then(() => console.log("Base de datos conectada correctamente"))
   .catch((err) =>
     console.log("Imposible conectar con la base de datos: ", err)
   );
