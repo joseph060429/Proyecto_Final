@@ -14,9 +14,6 @@ const createNewUser = async (req, res) => {
       password: req.body.password,
     };
 
-    const modelUserInstance = new modelUser(user);
-    await modelUserInstance.validate();
-
     if (
       !(
         req.body.name &&
@@ -27,6 +24,11 @@ const createNewUser = async (req, res) => {
     ) {
       res.status(400).send("Todos los campos son requeridos");
     }
+
+    const modelUserInstance = new modelUser(user);
+    await modelUserInstance.validate();
+
+    
 
     const emailExiste = await modelUser.findOne({ email: email });
 
