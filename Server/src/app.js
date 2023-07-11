@@ -1,4 +1,6 @@
 const express = require("express");
+const bodyParser = require ("body-parser")
+const authRoutes = require("./routes/authRoutes");
 
 //Variables de entorno
 require("dotenv").config;
@@ -13,7 +15,13 @@ app.listen(port, () => {
   console.log("Servidor corriendo en el puerto ", port);
 });
 
-const router = require("express").Router();
+//Capturar bodyParser
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
+
+
+//
 
 //rutas
 app.get("/", (req, res) => {
@@ -21,13 +29,14 @@ app.get("/", (req, res) => {
 });
 
 //Rutas no protegidas son crear y loguear el usuario//
-const authRoutes = require("./routes/authRoutes");
-app.use(authRoutes);
+app.use("/api", authRoutes) //Crear usuario y Login//
 
-const userRouter = require('./routes/userRouter');
+
+
+
 
 //Conexión a base de datos
 const database = require("./database/indexDb");
-// const createNewUser = require("./controllers/authController");
+
 
 module.exports = app;
