@@ -19,10 +19,6 @@ app.listen(port, () => {
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-
-
-//
-
 //rutas
 app.get("/", (req, res) => {
   res.send("Bienvenido a mi API");
@@ -30,8 +26,6 @@ app.get("/", (req, res) => {
 
 //Rutas no protegidas son crear y loguear el usuario//
 app.use("/api", authRoutes) //Crear usuario y Login//
-
-
 
 
 

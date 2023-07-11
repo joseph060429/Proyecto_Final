@@ -30,21 +30,24 @@ const createNewUser = async (req, res) => {
 
     
 
-    const emailExiste = await modelUser.findOne({ email: email });
+    const emailExiste = await modelUser.findOne({ email: user.email });
 
     if (emailExiste) {
       return res
         .status(400)
         .send({ message: "El correo electrónico ya existe" });
     }
-    const contraseñaEncriptada = await bcrypt.hash(password, 10);
+    const contraseñaEncriptada = await bcrypt.hash(user.password, 10);
 
-    if (contraseñaEncriptada < 8) {
+    if (user.password < 8) {
       return res
         .status(400)
         .send({ message: "La contraseña debe tener al menos 8 caracteres" });
     }
+    //antes de crear el usuario encripto la contraseña
+    user.password = contraseñaEncriptada;
 
+    //aqui creo el usuario
     await modelUser.create(user);
 
     return res
