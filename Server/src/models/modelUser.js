@@ -17,9 +17,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "El nombre del usuario es obligatorio"],
       minlength: [1, "El nombre del usuario debe ser superior a 1 caracter"],
-      maxlength: [
-        30,
-        "El nombre del usuario no debe ser superior a 30 caracteres",
+      maxlength: [30, "El nombre del usuario no debe ser superior a 30 caracteres",
       ],
       validate: {
         validator: function (value) {
@@ -80,6 +78,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const User = mongoose.model("User", userSchema);
+const modelUser = mongoose.model("User", userSchema);
 
-module.exports = User;
+module.exports = modelUser;

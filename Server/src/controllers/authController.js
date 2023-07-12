@@ -1,4 +1,4 @@
-const modelUser = require("../models/modelUser");
+const modelUser = require("../models/modelsIndex");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: ".env" });
@@ -28,8 +28,6 @@ const createNewUser = async (req, res) => {
     const modelUserInstance = new modelUser(user);
     await modelUserInstance.validate();
 
-    
-
     const emailExiste = await modelUser.findOne({ email: user.email });
 
     if (emailExiste) {
@@ -50,6 +48,11 @@ const createNewUser = async (req, res) => {
     //aqui creo el usuario
     await modelUser.create(user);
 
+    //Creo el token 
+    const token = jwt.sign({email : user.email}, process.env.SECRET, { 
+      expiresIn: "1H",
+    });
+
     return res
       .status(200)
       .send({ message: "El usuario se ha creado correctamente" });
@@ -67,4 +70,16 @@ const createNewUser = async (req, res) => {
   }
 };
 
-module.exports = createNewUser;
+
+//Login del usuario
+
+const loginUser = async (req, res) => {
+
+
+}
+
+
+
+
+
+module.exports = createNewUser, loginUser;
