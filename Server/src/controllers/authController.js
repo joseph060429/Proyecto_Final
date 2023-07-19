@@ -83,6 +83,7 @@ const loginUser = async (req, res) => {
     const user = await modelUser.findOne({ where: { email: email } });
     //Si el usuario existe y la contraseña es igual
     if (user && (await bcrypt.compare(password, user.password))) {
+      //Creo un token
       const token = jwt.sign(
         {
           email: user.email,
@@ -90,12 +91,15 @@ const loginUser = async (req, res) => {
         process.env.SECRET,
         { expiresIn: "1h" }
       );
+      //Guardo al usuario con su token
+      user.token = token;
 
-      res.header("Authorization", token).json({
-        error: null,
-        data: { token },
-      });
+      //Devuelvo al usuario
+      return res.status(200).json({ token: token });
+      //  console.log(user);
     }
+    res.status(400).send("Usuario o contraseña inválidas");
+    
   } catch (error) {
     console.log("Error: " + error);
     return res.status(500).json({ error: "Usuario o contraseña incorrecta" });
