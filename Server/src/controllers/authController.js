@@ -4,8 +4,6 @@ const jwt = require("jsonwebtoken");
 // const verificarToken = require("../middleware/validateToken")
 require("dotenv").config({ path: ".env" });
 
-
-
 //Crear usuario
 const createNewUser = async (req, res) => {
   try {
@@ -50,8 +48,8 @@ const createNewUser = async (req, res) => {
     //aqui creo el usuario
     await modelUser.create(user);
 
-    //Creo el token 
-    const token = jwt.sign({email : user.email}, process.env.SECRET, { 
+    //Creo el token
+    const token = jwt.sign({ email: user.email }, process.env.SECRET, {
       expiresIn: "1H",
     });
 
@@ -72,25 +70,36 @@ const createNewUser = async (req, res) => {
   }
 };
 
-
 //Login del usuario
-// crear el login usuario
-// const loginUser = async (req, res) => {
-//   try{
-//     const user = await modelUser.findOne({
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    //Valido los campos
+    if (!(email && password)) {
+      res.status(400).json({ msg: "Todos los campos son obligatorios" });
+    }
 
-//     })
+    // Buscar el email del usuario en la base de datos
+    const user = await modelUser.findOne({ where: { email: user.email } });
+    //Si el usuario existe y la contraseña es igual
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const token = jwt.sign(
+        {
+          email: user.email,
+        },
+        process.env.SECRET,
+        { expiresIn: "1h" }
+      );
 
-//   }
+      res.header("Authorization", token).json({
+        error: null,
+        data: { token },
+      });
+    }
+  } catch (error) {
+    console.log("Error: " + error);
+    return res.status(500).json({ error: "Usuario o contraseña incorrecta" });
+  }
+};
 
-
-
-// }
-
-
-
-
-
-module.exports = createNewUser
-
-// loginUser;
+module.exports = { createNewUser, loginUser };

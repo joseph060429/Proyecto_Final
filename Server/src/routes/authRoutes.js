@@ -1,9 +1,13 @@
 // //Ruta crear usuario
-const createNewUser  = require("../controllers/indexControllers");
+const {createNewUser, loginUser}  = require("../controllers/indexControllers");
 const authRoutes = require("express").Router();
 
-// //Ruta crear usuario
+//Ruta crear usuario
 authRoutes.post("/registro", createNewUser);
+
+//Ruta login usuario
+authRoutes.post("/login",loginUser)
+
 
 
 module.exports = authRoutes;
