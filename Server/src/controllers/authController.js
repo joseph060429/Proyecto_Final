@@ -80,7 +80,7 @@ const loginUser = async (req, res) => {
     }
 
     // Buscar el email del usuario en la base de datos
-    const user = await modelUser.findOne({ where: { email: user.email } });
+    const user = await modelUser.findOne({ where: { email: email } });
     //Si el usuario existe y la contraseña es igual
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign(
