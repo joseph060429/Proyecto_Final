@@ -1,10 +1,12 @@
 const modelUser = require("../models/modelsIndex");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+// const verificarToken = require("../middleware/validateToken")
 require("dotenv").config({ path: ".env" });
 
-//Crear usuario
 
+
+//Crear usuario
 const createNewUser = async (req, res) => {
   try {
     const user = {
@@ -72,14 +74,23 @@ const createNewUser = async (req, res) => {
 
 
 //Login del usuario
+// crear el login usuario
+// const loginUser = async (req, res) => {
+//   try{
+//     const user = await modelUser.findOne({
 
-const loginUser = async (req, res) => {
+//     })
 
-
-}
-
-
+//   }
 
 
 
-module.exports = createNewUser, loginUser;
+// }
+
+
+
+
+
+module.exports = createNewUser
+
+// loginUser;
